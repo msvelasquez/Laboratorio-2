@@ -8,6 +8,9 @@ int factorial(unsigned short int a); //Misma funcion del laboratorio 1
 void printMatriz5x5(int* lista);
 int convertRoman(char h);
 void intArrayPrint(int size, int* array);
+bool differentDigits(long long int i);
+int numSize(int p);
+int digitN(int num, int n);
 
 /*
 
@@ -79,28 +82,24 @@ return 0;
 
 //Problema #4; Convertir cadena a numero entero
 
-int problema4(char* a; int b){
+long long int problema4(char* cadena, int size){
 
-    char numeroc[40];
-    short unsigned int trueSize;
-    int numeroi = 0;
-    cin.getline(numeroc,40);
+    long long int numero = 0;
 
-    for(int y = 0; numeroc[y] != 0; y++){ trueSize++; }
-
-    for(int s = 0; trueSize>0 ; s++){
-        numeroi = numeroi + ( (numeroc[s]-48)*(pow(10, trueSize-1)) );
-        trueSize--;
+    for(short int indx = size-2; indx>=0;indx--){
+        numero += (int(*(cadena+(indx))-48) * pow(10, size-2-indx));
     }
 
-return numeroi;
+
+
+return numero;
 }
 
 int main(){
 
-    char cadena[] = "123456"; //REHACER CON PARAMETROS
+    char cadena[] = "1000000000000000";
 
-    int retorno = problema4(cadena, arraySize(cadena));
+    long long int retorno = problema4(cadena, arraySize(cadena));
 
     cout << "Numero: " << retorno << endl;
     cout << "Numero al sumarle 7: " << retorno+7 <<endl;
@@ -112,7 +111,7 @@ int main(){
 
 /*
 
-//Problema #6; Cadena de minusculas a mayusculas; RECORDAR PASAR A ARDUINO
+//Problema #6; Cadena de minusculas a mayusculas (Version de arduino en TinkerCAD)
 
 int main(){
 
@@ -167,7 +166,7 @@ int main(){
     cin.getline(roma,16);
     int arabia = 0;
 
-    for(short int p = arraySize(roma)-2; p >= 0 ;p--){
+    for(short int p = arraySize(roma)-1; p >= 0 ;p--){
         int prev = convertRoman(*(roma+p-1));
         int next = convertRoman(*(roma+p));
 
@@ -189,7 +188,8 @@ return 0;
 
 int main(){
 
-    int matriz[] = {4, 9, 2, 3, 5, 7, 8, 1, 6}; //Ingrese matriz aqui
+    //{4, 9, 2, 3, 5, 7, 8, 1, 6}
+    int matriz[] = {17, 24, 1, 8, 15, 23, 5, 7, 14, 16, 4, 6, 13, 20, 22, 10, 12, 19, 21, 3, 11, 18, 25, 2, 9}; //Ingrese matriz aqui
     float rootSize = sqrt(arraySize(matriz));
     int sum = 0;
     int temp = 0;
@@ -247,8 +247,6 @@ int main(){
 
 return 0;
 }
-
-//
 
 */
 
@@ -325,7 +323,7 @@ return 0;
 
 */
 
-//
+/*
 
 //Problema #18; Permutacion lexicografica con numeros del 0 al 9.
 
@@ -338,14 +336,19 @@ int main(){
     cin >> position;
 
     if()
+    short int permu[72];
+    short int count = 0;
 
+    for(short int a = 0; a<100; a++){
+        if(differentDigits(a)){ permu[count] = a; count++; }
+    }
 
-
+    cout << differentDigits(9876543210) <<endl;
 
 return 0;
 }
 
-//
+*/
 
 void printMatriz5x5(int* lista){
 
@@ -398,4 +401,40 @@ void intArrayPrint(int size,int* array){
     cout << "}" <<endl;
 }
 
-void swapArray
+int numSize(int p){
+    unsigned int size = 0;
+
+    while(int(p/pow(10, size))!=0){ size++; }
+
+    return size;
+}
+
+bool differentDigits(long long int i){
+    short int u = 0;
+    short int size = numSize(i);
+    short int t = 0;
+    bool unique = true;
+
+    while((size-u)>0 && unique==true){
+        while(t<u && unique==true){
+        short int digitT = digitN(i, t);
+        short int digitU = digitN(i, u);
+        cout << "Digit T: " << digitT << ";Digit U: " << digitU << endl;
+        if(digitT == digitU && u!=t){ unique = false; }
+        t++;
+        }
+        u++;
+        t = 0;
+    }
+
+return unique;
+}
+
+int digitN(int num, int n){
+    short int digit;
+
+    digit = (num/int(pow(10, n)))-(int((num/int(pow(10, n)))/10)*10);
+
+
+    return digit;
+}
